@@ -10,7 +10,6 @@ typedef struct node_ {
 typedef struct fila_apontadores_{
     struct node_ *frente, *fundo;
     int tam_atual;
-    struct node_ *itens;
 }fila_apontadores;
 
 fila_apontadores *criar_fila(){
@@ -18,7 +17,6 @@ fila_apontadores *criar_fila(){
     fila->fundo = NULL;
     fila->frente = NULL;
     fila->tam_atual = 0;
-    fila->itens = malloc(sizeof(node));
     return fila;
 }
 
@@ -58,27 +56,66 @@ void imprimir(fila_apontadores *fila){
 }
 
 struct node_ *pop(fila_apontadores *fila){
-    if(ehVazia(fila) == 0) return NULL;
-    struct node_ *temp = fila->frente;
+    if(fila->tam_atual == 0) return NULL;
+    node *tmp = fila->frente;
     fila->frente = fila->frente->prox;
     fila->tam_atual--;
+    return tmp;
 }
 
+int obtem_elemento(fila_apontadores *fila){
+    return fila->frente->item;
+}
 
-void main(){
+void menu(){
+    printf("\n--- Menu ---\n");
+    printf("1. Inserir elemento na fila (push)\n");
+    printf("2. Remover elemento da fila (pop)\n");
+    printf("3. Imprimir fila\n");
+    printf("0. Sair\n");
+    printf("Escolha uma opcao: ");
+}
 
-    fila_apontadores *fila1 = criar_fila();
-    push(fila1, 10);
-    push(fila1, 20);
-    push(fila1, 15);
-    push(fila1, 35);
-    imprimir(fila1);
-    pop(fila1);
-    pop(fila1);
-    pop(fila1);
-    imprimir(fila1);
-    pop(fila1);
-    imprimir(fila1);
-    pop(fila1);
-    imprimir(fila1);
+int main() {
+    fila_apontadores *fila = criar_fila();
+    int opcao, valor;
+    node *removido;
+
+    do {
+        menu();
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+            case 1:
+                printf("Digite o valor a ser inserido: ");
+                scanf("%d", &valor);
+                push(fila, valor);
+                printf("Valor %d inserido na fila.\n", valor);
+                break;
+
+            case 2:
+                removido = pop(fila);
+                if (removido) {
+                    printf("Elemento removido: %d\n", removido->item);
+                    free(removido);  // Liberar memória do nó removido
+                } else {
+                    printf("Fila Vazia! Nao ha elementos para remover.\n");
+                }
+                break;
+
+            case 3:
+                imprimir(fila);
+                break;
+
+            case 0:
+                printf("Saindo...\n");
+                break;
+
+            default:
+                printf("Opcao invalida! Tente novamente.\n");
+        }
+
+    } while(opcao != 0);
+
+    return 0;
 }

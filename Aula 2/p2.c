@@ -8,7 +8,9 @@ int main(){
     em si.
     */
     int x;
-    scanf("%d", &x);    
-    printf("O valor digitado foi: %d", x);
+    for(int i = 0; i < 3; i++){
+        //scanf("%d", &x);    
+        printf("O valor digitado foi: %d\n", i);
+    }
     return 0;
 }

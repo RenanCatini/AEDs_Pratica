@@ -160,6 +160,70 @@ void inOrder(struct Node *raiz) {
         inOrder(raiz->direita); 
     } 
 } 
+
+struct Node* minValueNode(struct Node* node) {
+    struct Node* atual = node;
+    while (atual->esquerda != NULL) {
+        atual = atual->esquerda;
+    }
+    return atual;
+}
+
+//Função remoção arvore AVL
+struct Node *remover(struct Node *raiz, int valor){
+    if (raiz == NULL) {
+        return raiz;
+    }
+
+    if (valor < raiz->valor) {
+        raiz->esquerda = remover(raiz->esquerda, valor);
+    } else if (valor > raiz->valor) {
+        raiz->direita = remover(raiz->direita, valor);
+    } else {
+        if ((raiz->esquerda == NULL) || (raiz->direita == NULL)) {
+            struct Node* temp = raiz->esquerda ? raiz->esquerda : raiz->direita;
+            if (temp == NULL) {
+                temp = raiz;
+                raiz = NULL;
+            } else {
+                *raiz = *temp;
+            }
+            free(temp);
+        } else {
+            struct Node* temp = minValueNode(raiz->direita);
+            raiz->valor = temp->valor;
+            raiz->direita = remover(raiz->direita, temp->valor);
+        }
+    }
+
+    if (raiz == NULL) {
+        return raiz;
+    }
+
+    raiz->altura = 1 + max(altura(raiz->esquerda), altura(raiz->direita));
+    int balance = balanceamento(raiz);
+
+    if (balance > 1 && balanceamento(raiz->esquerda) >= 0) {
+        return direitaRotate(raiz);
+    }
+
+    if (balance < -1 && balanceamento(raiz->direita) <= 0) {
+        return esquerdaRotate(raiz);
+    }
+
+    if (balance > 1 && balanceamento(raiz->esquerda) < 0) {
+        raiz->esquerda = esquerdaRotate(raiz->esquerda);
+        return direitaRotate(raiz);
+    }
+
+    if (balance < -1 && balanceamento(raiz->direita) > 0) {
+        raiz->direita = direitaRotate(raiz->direita);
+        return esquerdaRotate(raiz);
+    }
+
+    return raiz;
+}
+
   
 /* Driver program to test above function*/
 int main() { 

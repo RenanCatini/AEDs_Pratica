@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/renan/OneDrive/Documentos/Trabalhos VSCode/C/AEDs_Pratica/Arvore_balanceada",
-      "program": "c:/Users/renan/OneDrive/Documentos/Trabalhos VSCode/C/AEDs_Pratica/Arvore_balanceada/build/Debug/outDebug",
+      "externalConsole": false,
+      "cwd": "/home/2024.1.08.042/Desktop/AEDs_Pratica/Ordenação",
+      "program": "/home/2024.1.08.042/Desktop/AEDs_Pratica/Ordenação/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

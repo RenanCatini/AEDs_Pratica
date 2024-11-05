@@ -161,3 +161,16 @@ int main(int argc, char *argv[]){
 
     return 0;
 }
+
+
+
+
+/*Testar: Calculo de memoria
+#include <sys/resource.h>
+
+void print_memory_usage() {
+    struct rusage usage;
+    getrusage(RUSAGE_SELF, &usage);
+    printf("Memória máxima usada: %ld KB\n", usage.ru_maxrss);
+}
+*/

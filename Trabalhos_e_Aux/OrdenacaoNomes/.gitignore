@@ -4,3 +4,4 @@
 #Ignorar arquivos de compilação e execução
 *.o
 *.exe
+8.h

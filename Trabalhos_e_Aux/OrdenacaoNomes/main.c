@@ -117,39 +117,36 @@ void quickSort(Jogador *jogadores, int min, int max, int *comparacoes, int *troc
 
 
 int main(int argc, char *argv[]){
-    if (argc < 2) {
-        fprintf(stderr, "Uso: %s <opção>\nOpções válidas: 1, 2, 3\n", argv[0]);
-        return 1;
-    }
     int opcao = atoi(argv[1]);
       
-    int comp, trocas;
-    clock_t I_Bbs, F_Bbs;
+    int comp = 0, trocas = 0;
+    clock_t I_Bbs = 0, F_Bbs = 0;
 
     lerArquivo("jogadores.csv");
 
-    I_Bbs = clock();
-    switch (opcao)
-    {
-    case 1:
+    if(opcao == 1){
+        I_Bbs = clock();
         bubbleSort(jogadores, &comp, &trocas);
+        F_Bbs = clock();
         printf("*Metodo escolhido: Simples.\n");
-        break;
-    
-    case 2:
-
+    } 
+    else if(opcao == 2){
+        I_Bbs = clock();
+        //Funcao Otima
+        F_Bbs = clock();
         printf("*Metodo escolhido: Otimo.\n");
-        break;
-
-    case 3:
+    } 
+    else if(opcao == 3){
+        I_Bbs = clock();
         quickSort(jogadores, 0, maxLinha-1, &comp, &trocas);
+        F_Bbs = clock();
         printf("*Metodo escolhido: Tempo linear.\n");
-        break;
-
-    default:
-        break;
     }
-    F_Bbs = clock();
+    else {
+        puts("Opcao invalida!\n");
+        return -1;
+    }
+    
     float tempo_gasto = (double)(F_Bbs - I_Bbs) / CLOCKS_PER_SEC * 1000.0;
 
     Arquivar("jog_ordenado.csv");
